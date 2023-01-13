@@ -6,22 +6,25 @@ from ControllerTransmission.controller_objects.GamepadController import GamepadC
 
 class ControlTransmission(object):
     """
+    An object for transmitting formatted input to the ROS Noetic system over UDP
 
+    @author Nicholas Sendyk
+    @cite https://wiki.python.org/moin/UdpCommunication
     """
 
-    UDP_IP = "127.0.0.1"
-    UDP_PORT = 5005
+    UDP_IP = "192.168.136.1"
+    UDP_PORT = 8888
 
     def __init__(self):
         """
-
+        Initializes the local objects
         """
         self.game_controller = GamepadController()
         self.bytes_format = 'utf-8'
 
     def transmit_udp(self):
         """
-        @cite https://wiki.python.org/moin/UdpCommunication
+        Transmits formatted commands from a controller to the ROS noetic system over UDP
         """
         print("UDP target IP: %s" % ControlTransmission.UDP_IP)
         print("UDP target port: %s" % ControlTransmission.UDP_PORT)
@@ -36,13 +39,14 @@ class ControlTransmission(object):
             sock = socket.socket(socket.AF_INET,  # Internet
                                  socket.SOCK_DGRAM)  # UDP
             sock.sendto(bytes_msg, (ControlTransmission.UDP_IP, ControlTransmission.UDP_PORT))
-            time.sleep(0.05)
+            time.sleep(0.1)
 
     def _process_message(self, unprocessed_message: list) -> bytes:
         """
+        Logic to process controller commands into desired actions on the ROS system
 
-        :param unprocessed_message:
-        :return:
+        :param unprocessed_message: semi-formatted input from the controller
+        :return: bytes; the byte formatted message
         """
         message = ""
 
