@@ -12,8 +12,9 @@ class ControlTransmission(object):
     @cite https://wiki.python.org/moin/UdpCommunication
     """
 
-    UDP_IP = "192.168.136.1"
-    UDP_PORT = 8888
+    UDP_IP = "192.168.1.242"
+    UDP_PORT = 5515
+    TOLERANCE = 26
 
     def __init__(self):
         """
@@ -49,20 +50,23 @@ class ControlTransmission(object):
         :return: bytes; the byte formatted message
         """
         message = ""
+        l_r_val = int(unprocessed_message[0] * 255)
+        f_b_val = int(unprocessed_message[1] * 255)
 
-        if unprocessed_message[0] > 0.1:
-            message += "R" + '{0:.2f}'.format(unprocessed_message[0]) + "|"
-        elif unprocessed_message[0] < -0.1:
-            message += "L" + '{0:.2f}'.format(abs(unprocessed_message[0])) + "|"
+        if abs(l_r_val) > abs(f_b_val):
+            if l_r_val > self.TOLERANCE:
+                message += "R" + "{:03d}".format(abs(l_r_val))
+            elif l_r_val < -self.TOLERANCE:
+                message += "L" + "{:03d}".format(abs(l_r_val))
+            else:
+                message += "N" + "{:03d}".format(abs(l_r_val))
         else:
-            message += "N" + '{0:.2f}'.format(abs(unprocessed_message[0])) + "|"
-
-        if unprocessed_message[1] > 0.1:
-            message += "F" + '{0:.2f}'.format(unprocessed_message[1]) + "|"
-        elif unprocessed_message[1] < -0.1:
-            message += "B" + '{0:.2f}'.format(abs(unprocessed_message[1])) + "|"
-        else:
-            message += "N" + '{0:.2f}'.format(abs(unprocessed_message[1])) + "|"
+            if f_b_val > self.TOLERANCE:
+                message += "F" + "{:03d}".format(abs(f_b_val))
+            elif f_b_val < -self.TOLERANCE:
+                message += "B" + "{:03d}".format(abs(f_b_val))
+            else:
+                message += "N" + "{:03d}".format(abs(f_b_val))
 
         msg = bytes(message, self.bytes_format)
 
