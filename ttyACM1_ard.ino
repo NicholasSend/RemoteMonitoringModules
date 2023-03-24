@@ -1,4 +1,4 @@
-// Arduino file
+ // Arduino file
 
 //includes
 #include <ros.h>
@@ -24,14 +24,15 @@ ros::NodeHandle nh;
 
 char msg_tmp[4];
 char pre_int[3];
-char flag[1] = '_';
+char flag;
 int PWM_IN;
+/*
+// Collision Avoidance Variables
 long duration;
 int distance;
 int irSensorValue;
 
-//std_msgs::String flag;
-
+*/
 void messageCb( const std_msgs::String& action){
   
   // String Manipulation to Integer Values
@@ -43,7 +44,10 @@ void messageCb( const std_msgs::String& action){
   
   sscanf(pre_int, "%d", &PWM_IN);
 
+  flag = '_';
+
   // Collision Avoidance
+  /*
   irSensorValue = analogRead(irSensorPin);
   duration = pulseIn(echoPin, HIGH);
   distance = duration / 58;
@@ -62,54 +66,60 @@ void messageCb( const std_msgs::String& action){
     flag = '_';
     digitalWrite(LED, HIGH);
   }
+  */
+  
   
   if (msg_tmp[0] == 'N'){ // Neutral -> no movement, safety state
-    digitalWrite(R_PWM, 0);
-    digitalWrite(L_PWM, 0);
+    analogWrite(R_PWM, 0);
+    analogWrite(L_PWM, 0);
 //   digitalWrite(LED, HIGH); 
   }
   
   else {
     
-    if ((msg_tmp[0] == 'F') && (flag != 'F')){ // Forward
-      digitalWrite(R_PWM, PWM_IN);
-      digitalWrite(L_PWM, 0);
+    if ((msg_tmp[0] == 'B') && (flag != 'B')){ // Forward
+      analogWrite(R_PWM, PWM_IN/4);
+      
+      analogWrite(L_PWM, 0);
     }
 
-    else if ((msg_tmp[0] == 'B') && (flag != 'B')){  // Back
-      digitalWrite(R_PWM, 0);
-      digitalWrite(L_PWM, PWM_IN);
+    else if ((msg_tmp[0] == 'F') && (flag != 'F')){  // Back
+      analogWrite(L_PWM, PWM_IN/4);
+      analogWrite(R_PWM, 0);
     }
     
     else if ((msg_tmp[0] == 'R') && (flag != 'R')){  // Right
-      digitalWrite(R_PWM, 0);
-      digitalWrite(L_PWM, PWM_IN);
+      analogWrite(L_PWM, PWM_IN/1.5);
+      analogWrite(R_PWM, 0);
     }
     
     else if ((msg_tmp[0] == 'L') && (flag != 'L')){  // Left
-      digitalWrite(R_PWM, PWM_IN);
-      digitalWrite(L_PWM, 0);
+      analogWrite(R_PWM, PWM_IN/1.5);
+      analogWrite(L_PWM, 0);
     } 
 
     else{ // Uknown or flagged input -> No movement, safety state
-      digitalWrite(R_PWM, 0);
-      digitalWrite(L_PWM, 0);
+      analogWrite(R_PWM, 0);
+      analogWrite(L_PWM, 0);
     }
   }
 }
 
 ros::Subscriber<std_msgs::String> sub("ard_in", &messageCb );
 
-std_msgs::String str_msg;
-ros::Publisher pub("ard_out", &str_msg);
+//std_msgs::String str_msg;
+//ros::Publisher pub("ard_out", &str_msg);
 
-char hello[13] = "hello world!";
+//char hello[13] = "hello world!";
 
 void setup()
 {
+/*
+  // Collision Avoidance Pins
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(irSensorPin, INPUT);
+  */
   pinMode(LED, OUTPUT);
   pinMode(L_EN, OUTPUT);
   pinMode(R_EN, OUTPUT);
@@ -123,17 +133,19 @@ void setup()
  
   nh.initNode();
   nh.subscribe(sub);
-  nh.advertise(pub);
+  //nh.advertise(pub);
+  nh.getHardware()->setBaud(115200);
 }
 
 void loop()
 {
+  /*
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  
+  */
 //  duration = pulseIn(echoPin, HIGH);
 //  distance = duration / 58;
 
@@ -147,8 +159,8 @@ void loop()
 //  Serial.println(irSensorValue);
 
 
-  str_msg.data = hello;
+ // str_msg.data = hello;
 //  pub.publish( &str_msg );
   nh.spinOnce();
-  delay(100);
+  delay(1);
 }
