@@ -2,6 +2,8 @@ import socket
 import time
 
 from ControllerTransmission.controller_objects.GamepadController import GamepadController
+from ControllerTransmission.controller_objects.KeyboardController import KeyboardController
+from ControllerTransmission.controller_objects.ReverbG2 import VRController
 
 
 class ControlTransmission(object):
@@ -12,15 +14,31 @@ class ControlTransmission(object):
     @cite https://wiki.python.org/moin/UdpCommunication
     """
 
-    UDP_IP = "192.168.1.242"
+    UDP_IP = "10.147.20.134"
     UDP_PORT = 5515
-    TOLERANCE = 26
+    TOLERANCE = 5
 
-    def __init__(self):
+    def __init__(self, controller_type: int):
         """
         Initializes the local objects
+
+        :param controller_type: Integer representing the type of Controller used to transmit information
+                                1 - Gamepad Controller [Default]
+                                2 - HP Reverb G2
+                                3 - Keyboard
         """
-        self.game_controller = GamepadController()
+        self.controller_type = controller_type
+
+        match controller_type:
+            case 1:
+                self.game_controller = GamepadController()
+            case 2:
+                self.game_controller = VRController()
+            case 3:
+                self.game_controller = KeyboardController()
+            case _:
+                self.game_controller = GamepadController()
+
         self.bytes_format = 'utf-8'
 
     def transmit_udp(self):
@@ -74,4 +92,4 @@ class ControlTransmission(object):
 
 
 if __name__ == '__main__':
-    ControlTransmission().transmit_udp()
+    ControlTransmission(1).transmit_udp()
