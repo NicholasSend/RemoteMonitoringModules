@@ -18,11 +18,13 @@ user(s).
 
 ## Built With
 
-Python - The language used for 
+Python - The language used for Audio-Video, Control Transmission, and ROS Nodes
 
-C++ - The language used for 
+C++ - The language used for Arduino and ROS nodes
 
 OpenCV - The Computer Vision Library used
+
+stereovision - The Stereo Camera Library used
 
 OpenVR - The VR library used
 
@@ -61,17 +63,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   README.md
 |   requirements.txt
 |
-+---.idea
-|   |   .gitignore
-|   |   .name
-|   |   misc.xml
-|   |   modules.xml
-|   |   SYSC4907_EricssonARISE.iml
-|   |   workspace.xml
-|   |
-|   \---inspectionProfiles
-|           profiles_settings.xml
-|
 +---.vscode
 |       launch.json
 |
@@ -79,11 +70,10 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |   AudioTransmissionVisualReciever.py
 |   |   AudioVisualTransmission.py
 |   |
-|   +---reference
-|   |       AudioTransmission.py
-|   |       InternetPhone.py
-|   |
-|   \---__pycache__
+|   \---reference
+|           AudioTransmission.py
+|           InternetPhone.py
+|
 +---ControllerTransmission
 |   |   HeadTrackingDebug.py
 |   |   HeadTrackingTransmission.py
@@ -94,9 +84,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |   |   GamepadController.py
 |   |   |   KeyboardController.py
 |   |   |   ReverbG2.py
-|   |   |
-|   |   \---__pycache__
-|   |           GamepadController.cpython-310.pyc
 |   |
 |   \---reference
 |           ReverbG2.py
@@ -180,8 +167,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |   |           undistortion_map_right.npy
 |   |   |           valid_boxes_left.npy
 |   |   |           valid_boxes_right.npy
-|   |   |
-|   |   \---__pycache__
 |   \---res
 |           object_avoidance_algorithm.drawio
 |           object_avoidance_algorithm.png
@@ -204,35 +189,95 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |           udp_intf.py
 |           udp_intf_2.py
 |
-+---scratch
-|       fusion_gear.py
-|       yolov4-tiny.cfg
-|       yolov4-tiny.weights
-|
-\---__pycache__
+\---scratch
+        fusion_gear.py
+        yolov4-tiny.cfg
+        yolov4-tiny.weights
+
 ```
 
 ## Feature Breakdown
 
 ### Audio-Video Transmission
 
+```
++---AudioVideoTransmission
+|   |   AudioTransmissionVisualReciever.py
+|   |   AudioVisualTransmission.py
+```
+
 #### Description
+
+The goal of this feature is to provide real time interactions between the driver of the remote monitoring vehicle and 
+those in the monitored area. This feature provides a video stream of the driver to the screen located on the front of 
+the robot.  As well, this makes use of two-way internet enabled audio capturing and output to allow for conversations 
+between the driver and the environment.
 
 #### Usage
 
 ### Controller Transmission
 
+```
++---ControllerTransmission
+|   |   HeadTrackingDebug.py
+|   |   HeadTrackingTransmission.py
+|   |   InputTransmission.py
+|   |   InputTransmissionReceiveTest.py
+|   |
+|   +---controller_objects
+|   |   |   GamepadController.py
+|   |   |   KeyboardController.py
+|   |   |   ReverbG2.py
+```
+
 #### Description
+
+The goal of this feature is to provide real-time control transmission. This code works to capture different input types, 
+to parse these inputs into desired commands, and then transmit these controls to the robot. This all is meant to occur 
+in a low latency manner, providing a way to move remotely in near real-time.
 
 #### Usage
 
 ### Object Avoidance
 
+```
++---ObjectAvoidance
+|   +---filters
+|   |   +---point_cloud
+|   |   |   |   3dmap_set.txt
+|   |   |   |   calibration.mp4
+|   |   |   |   Calibration.py
+|   |   |   |   fine_tune_1.jpg
+|   |   |   |   fine_tuning.py
+|   |   |   |   ObstacleAvoidance.py
+|   |   |   |   PointCloudVisualization.py
+|   |   |   |   stop_sign.xml
+```
+
 #### Description
+
+The goal of these features is two pronged.  Firstly, the goal is to parse in real-time the perceptions of the robot, 
+through the manner of an on-board stereo camera.  The perceptions include stop sign detection, depth detection, object 
+identification, and edge detection. The secondary goal is to leverage these perceptions to avoid obstacles as part of a 
+path finding implementation.
 
 #### Usage
 
 ### ROS Model Nodes
+
+```
++---ROSModelNodes
+|   +---arduino
+|   |       ttyACM0_ard.ino
+|   |       ttyACM1_ard.ino
+|   |       ttyACM2_ard_servo.ino
+|   |
+|   \---ros
+|           api.launch
+|           ard_intf.cpp
+|           udp_intf.py
+|           udp_intf_2.py
+```
 
 #### Description
 
@@ -254,5 +299,3 @@ Thank you to Ericsson and Carleton University for the support on this research.
 
 Thank you to Arsh Salym and Nikita Volochay for your support on the hardware side of the project.
 As well, a special thanks to the supervisors of the project Dr. Ioannis Lambadaris and Dr. Syed Naqvi.
-
-
