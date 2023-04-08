@@ -257,7 +257,7 @@ python3 ControllerTransmission/InputTransmission.py
 ```
 
 To make use of the remote head tracking control on the robot, one must first launch Windows Mixed Reality and connect an
-HP Reverb G@ to their system.  Following this, run the following command from the project root directory:
+HP Reverb G2 to their system.  Following this, run the following command from the project root directory:
 
 ```
 python3 ControllerTransmission/HeadTrackingTransmission.py
