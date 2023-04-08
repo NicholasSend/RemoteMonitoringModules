@@ -1,10 +1,8 @@
-import json
-
-import numpy as np
-import cv2
-import av
-from stereovision.calibration import StereoCalibration
 from enum import Enum
+
+import av
+import cv2
+from stereovision.calibration import StereoCalibration
 
 
 class State(Enum):
@@ -67,14 +65,12 @@ class ObstacleAvoidance:
         print('Read calibration data and rectifying stereo pair...')
         self.calibration = StereoCalibration(input_folder='calib_result')
 
-
         # Initialize the video stream
         # create a PyAV input stream from the raw H264 video stream
         self.container = av.open("udp://192.168.0.218:3001?overrun_nonfatal=1&fifo_size=50000&pkt_size=30000")
         self.stream = self.container.streams.video[0]
 
         # Wait for the video stream to load
-
 
     def _monitor_video_stream(self) -> None:
         return

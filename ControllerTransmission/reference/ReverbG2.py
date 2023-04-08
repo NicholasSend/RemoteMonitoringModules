@@ -1,6 +1,7 @@
 import math
-import openvr
 import threading
+
+import openvr
 
 
 class VRController(object):

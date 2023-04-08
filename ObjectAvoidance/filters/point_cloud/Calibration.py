@@ -1,6 +1,6 @@
 import av
-import numpy as np
 import cv2
+import numpy as np
 from stereovision.calibration import StereoCalibrator
 from stereovision.exceptions import ChessboardNotFoundError
 
@@ -26,7 +26,6 @@ print("Starting stream connection...")
 container = av.open("udp://192.168.0.218:3000?overrun_nonfatal=1&fifo_size=50000&pkt_size=30000")
 stream = container.streams.video[0]
 print("Connection established.")
-
 
 calibrator = StereoCalibrator(8, 6, 2.3, (960, 960))
 i = 0

@@ -1,5 +1,6 @@
-from vidstream import AudioSender, AudioReceiver, CameraClient
 import threading
+
+from vidstream import AudioSender, AudioReceiver, CameraClient
 
 # To be used on the VR Transmission end of the system
 

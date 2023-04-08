@@ -21,14 +21,13 @@
 # Thanks to Adrian and http://pyimagesearch.com, as there are lot of
 # code in this tutorial was taken from his lessons.
 #
+import json
+
 import av
 import cv2
-import os
-
+import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.widgets import Slider, Button
-import numpy as np
-import json
 from stereovision.calibration import StereoCalibration
 
 # create a PyAV input stream from the raw H264 video stream
@@ -52,8 +51,8 @@ image_width = photo_width // 2
 
 # Read image and split it in a stereo pair
 print('Read and split image...')
-imgLeft = pair_img[0:photo_height, 0:image_width] #Y+H and X+W
-imgRight = pair_img[0:photo_height, image_width:photo_width] #Y+H and X+W
+imgLeft = pair_img[0:photo_height, 0:image_width]  # Y+H and X+W
+imgRight = pair_img[0:photo_height, image_width:photo_width]  # Y+H and X+W
 cv2.imshow('Left CALIBRATED', imgLeft)
 cv2.imshow('Right CALIBRATED', imgRight)
 cv2.waitKey(0)
@@ -66,7 +65,6 @@ cv2.imshow('Left CALIBRATED', rectified_pair[0])
 cv2.imshow('Right CALIBRATED', rectified_pair[1])
 cv2.waitKey(0)
 
-
 # Depth map function
 SWS = 5
 PFS = 5
@@ -78,14 +76,15 @@ UR = 10
 SR = 15
 SPWS = 100
 
+
 def stereo_depth_map(rectified_pair):
-    print ('SWS='+str(SWS)+' PFS='+str(PFS)+' PFC='+str(PFC)+' MDS='+\
-           str(MDS)+' NOD='+str(NOD)+' TTH='+str(TTH))
-    print (' UR='+str(UR)+' SR='+str(SR)+' SPWS='+str(SPWS))
+    print('SWS=' + str(SWS) + ' PFS=' + str(PFS) + ' PFC=' + str(PFC) + ' MDS=' + \
+          str(MDS) + ' NOD=' + str(NOD) + ' TTH=' + str(TTH))
+    print(' UR=' + str(UR) + ' SR=' + str(SR) + ' SPWS=' + str(SPWS))
     c, r = rectified_pair[0].shape
     disparity = np.zeros((c, r), np.uint8)
     sbm = cv2.StereoBM_create(numDisparities=16, blockSize=15)
-    #sbm.SADWindowSize = SWS
+    # sbm.SADWindowSize = SWS
     sbm.setPreFilterType(1)
     sbm.setPreFilterSize(PFS)
     sbm.setPreFilterCap(PFC)
@@ -97,62 +96,65 @@ def stereo_depth_map(rectified_pair):
     sbm.setSpeckleWindowSize(SPWS)
     dmLeft = rectified_pair[0]
     dmRight = rectified_pair[1]
-    #cv2.FindStereoCorrespondenceBM(dmLeft, dmRight, disparity, sbm)
+    # cv2.FindStereoCorrespondenceBM(dmLeft, dmRight, disparity, sbm)
     disparity = sbm.compute(dmLeft, dmRight)
-    #disparity_visual = cv.CreateMat(c, r, cv.CV_8U)
+    # disparity_visual = cv.CreateMat(c, r, cv.CV_8U)
     local_max = disparity.max()
     local_min = disparity.min()
-    print ("MAX " + str(local_max))
-    print ("MIN " + str(local_min))
-    disparity_visual = (disparity-local_min)*(1.0/(local_max-local_min))
+    print("MAX " + str(local_max))
+    print("MIN " + str(local_min))
+    disparity_visual = (disparity - local_min) * (1.0 / (local_max - local_min))
     local_max = disparity_visual.max()
     local_min = disparity_visual.min()
-    print ("MAX " + str(local_max))
-    print ("MIN " + str(local_min))
-    #cv.Normalize(disparity, disparity_visual, 0, 255, cv.CV_MINMAX)
-    #disparity_visual = np.array(disparity_visual)
+    print("MAX " + str(local_max))
+    print("MIN " + str(local_min))
+    # cv.Normalize(disparity, disparity_visual, 0, 255, cv.CV_MINMAX)
+    # disparity_visual = np.array(disparity_visual)
     return disparity_visual
+
 
 disparity = stereo_depth_map(rectified_pair)
 
 # Set up and draw interface
 # Draw left image and depth map
 axcolor = 'lightgoldenrodyellow'
-fig = plt.subplots(1,2)
+fig = plt.subplots(1, 2)
 plt.subplots_adjust(left=0.15, bottom=0.5)
-plt.subplot(1,2,1)
+plt.subplot(1, 2, 1)
 dmObject = plt.imshow(rectified_pair[0], 'gray')
 
-saveax = plt.axes([0.3, 0.38, 0.15, 0.04]) #stepX stepY width height
+saveax = plt.axes([0.3, 0.38, 0.15, 0.04])  # stepX stepY width height
 buttons = Button(saveax, 'Save settings', color=axcolor, hovercolor='0.975')
 
 
-def save_map_settings( event ):
-    buttons.label.set_text ("Saving...")
+def save_map_settings(event):
+    buttons.label.set_text("Saving...")
     print('Saving to file...')
-    result = json.dumps({'SADWindowSize':SWS, 'preFilterSize':PFS, 'preFilterCap':PFC, \
-             'minDisparity':MDS, 'numberOfDisparities':NOD, 'textureThreshold':TTH, \
-             'uniquenessRatio':UR, 'speckleRange':SR, 'speckleWindowSize':SPWS},\
-             sort_keys=True, indent=4, separators=(',',':'))
+    result = json.dumps({'SADWindowSize': SWS, 'preFilterSize': PFS, 'preFilterCap': PFC, \
+                         'minDisparity': MDS, 'numberOfDisparities': NOD, 'textureThreshold': TTH, \
+                         'uniquenessRatio': UR, 'speckleRange': SR, 'speckleWindowSize': SPWS}, \
+                        sort_keys=True, indent=4, separators=(',', ':'))
     fName = '3dmap_set.txt'
-    f = open (str(fName), 'w')
+    f = open(str(fName), 'w')
     f.write(result)
     f.close()
-    buttons.label.set_text ("Save to file")
-    print ('Settings saved to file '+fName)
+    buttons.label.set_text("Save to file")
+    print('Settings saved to file ' + fName)
+
 
 buttons.on_clicked(save_map_settings)
 
-
-loadax = plt.axes([0.5, 0.38, 0.15, 0.04]) #stepX stepY width height
+loadax = plt.axes([0.5, 0.38, 0.15, 0.04])  # stepX stepY width height
 buttonl = Button(loadax, 'Load settings', color=axcolor, hovercolor='0.975')
-def load_map_settings( event ):
+
+
+def load_map_settings(event):
     global SWS, PFS, PFC, MDS, NOD, TTH, UR, SR, SPWS, loading_settings
     loading_settings = 1
     fName = '3dmap_set.txt'
     print('Loading parameters from file...')
-    buttonl.label.set_text ("Loading...")
-    f=open(fName, 'r')
+    buttonl.label.set_text("Loading...")
+    f = open(fName, 'r')
     data = json.load(f)
     sSWS.set_val(data['SADWindowSize'])
     sPFS.set_val(data['preFilterSize'])
@@ -164,31 +166,31 @@ def load_map_settings( event ):
     sSR.set_val(data['speckleRange'])
     sSPWS.set_val(data['speckleWindowSize'])
     f.close()
-    buttonl.label.set_text ("Load settings")
-    print ('Parameters loaded from file '+fName)
-    print ('Redrawing depth map with loaded parameters...')
+    buttonl.label.set_text("Load settings")
+    print('Parameters loaded from file ' + fName)
+    print('Redrawing depth map with loaded parameters...')
     loading_settings = 0
     update(0)
-    print ('Done!')
+    print('Done!')
+
 
 buttonl.on_clicked(load_map_settings)
 
-
-plt.subplot(1,2,2)
+plt.subplot(1, 2, 2)
 dmObject = plt.imshow(disparity, aspect='equal', cmap='jet')
 
 # Draw interface for adjusting parameters
 print('Start interface creation (it takes up to 30 seconds)...')
 
-SWSaxe = plt.axes([0.15, 0.01, 0.7, 0.025]) #stepX stepY width height
-PFSaxe = plt.axes([0.15, 0.05, 0.7, 0.025]) #stepX stepY width height
-PFCaxe = plt.axes([0.15, 0.09, 0.7, 0.025]) #stepX stepY width height
-MDSaxe = plt.axes([0.15, 0.13, 0.7, 0.025]) #stepX stepY width height
-NODaxe = plt.axes([0.15, 0.17, 0.7, 0.025]) #stepX stepY width height
-TTHaxe = plt.axes([0.15, 0.21, 0.7, 0.025]) #stepX stepY width height
-URaxe = plt.axes([0.15, 0.25, 0.7, 0.025]) #stepX stepY width height
-SRaxe = plt.axes([0.15, 0.29, 0.7, 0.025]) #stepX stepY width height
-SPWSaxe = plt.axes([0.15, 0.33, 0.7, 0.025]) #stepX stepY width height
+SWSaxe = plt.axes([0.15, 0.01, 0.7, 0.025])  # stepX stepY width height
+PFSaxe = plt.axes([0.15, 0.05, 0.7, 0.025])  # stepX stepY width height
+PFCaxe = plt.axes([0.15, 0.09, 0.7, 0.025])  # stepX stepY width height
+MDSaxe = plt.axes([0.15, 0.13, 0.7, 0.025])  # stepX stepY width height
+NODaxe = plt.axes([0.15, 0.17, 0.7, 0.025])  # stepX stepY width height
+TTHaxe = plt.axes([0.15, 0.21, 0.7, 0.025])  # stepX stepY width height
+URaxe = plt.axes([0.15, 0.25, 0.7, 0.025])  # stepX stepY width height
+SRaxe = plt.axes([0.15, 0.29, 0.7, 0.025])  # stepX stepY width height
+SPWSaxe = plt.axes([0.15, 0.33, 0.7, 0.025])  # stepX stepY width height
 
 sSWS = Slider(SWSaxe, 'SWS', 5.0, 255.0, valinit=5)
 sPFS = Slider(PFSaxe, 'PFS', 5.0, 255.0, valinit=5)
@@ -204,20 +206,20 @@ sSPWS = Slider(SPWSaxe, 'SpklWinSze', 0.0, 300.0, valinit=100)
 # Update depth map parameters and redraw
 def update(val):
     global SWS, PFS, PFC, MDS, NOD, TTH, UR, SR, SPWS
-    SWS = int(sSWS.val/2)*2+1 #convert to ODD
-    PFS = int(sPFS.val/2)*2+1
-    PFC = int(sPFC.val/2)*2+1
+    SWS = int(sSWS.val / 2) * 2 + 1  # convert to ODD
+    PFS = int(sPFS.val / 2) * 2 + 1
+    PFC = int(sPFC.val / 2) * 2 + 1
     MDS = int(sMDS.val)
-    NOD = int(sNOD.val/16)*16
+    NOD = int(sNOD.val / 16) * 16
     TTH = int(sTTH.val)
     UR = int(sUR.val)
     SR = int(sSR.val)
-    SPWS= int(sSPWS.val)
+    SPWS = int(sSPWS.val)
 
-    print ('Rebuilding depth map')
+    print('Rebuilding depth map')
     disparity = stereo_depth_map(rectified_pair)
     dmObject.set_data(disparity)
-    print ('Redraw depth map')
+    print('Redraw depth map')
     plt.draw()
 
 

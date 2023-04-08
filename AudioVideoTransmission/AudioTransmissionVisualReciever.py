@@ -1,7 +1,7 @@
+import threading
 from time import sleep
 
 from vidstream import AudioSender, AudioReceiver, StreamingServer
-import threading
 
 # To be used on the robot reception end of the system
 

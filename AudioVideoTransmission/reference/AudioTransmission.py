@@ -1,7 +1,7 @@
+import threading
 from time import sleep
 
-from vidstream import AudioSender, AudioReceiver, CameraClient, StreamingServer
-import threading
+from vidstream import AudioSender, AudioReceiver, CameraClient
 
 client = CameraClient('8.8.8.8', 9999)
 receiver = AudioReceiver('8.8.8.8', 5000)

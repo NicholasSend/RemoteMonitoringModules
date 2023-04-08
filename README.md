@@ -1,19 +1,22 @@
 # High-Definition Virtual Reality (VR) Platform for Remote Monitoring and Collaboration
-This repository contains code related to a project aimed at developing a customizable VR platform for remote monitoring 
-and collaboration in various fields such as industrial, medical, public safety, and entertainment. The project will 
-focus on developing a basic VR system that can provide a virtual tour of the 5G Ericsson ARISE wireless lab at Carleton 
+
+This repository contains code related to a project aimed at developing a customizable VR platform for remote monitoring
+and collaboration in various fields such as industrial, medical, public safety, and entertainment. The project will
+focus on developing a basic VR system that can provide a virtual tour of the 5G Ericsson ARISE wireless lab at Carleton
 University and support remote collaboration between users.
 
 ## Background
-Recent advances in VR technologies have led to the availability of off-the-shelf VR products for consumers. However, 
-these products are mainly geared towards gaming and pre-made media consumption and lack customization for industrial 
-use. The aim of this project is to develop an end-to-end VR solution that can be customized for remote monitoring and 
+
+Recent advances in VR technologies have led to the availability of off-the-shelf VR products for consumers. However,
+these products are mainly geared towards gaming and pre-made media consumption and lack customization for industrial
+use. The aim of this project is to develop an end-to-end VR solution that can be customized for remote monitoring and
 collaboration.
 
 ## Purpose
-The purpose of this project is to provide the 5G Ericsson ARISE wireless lab with a state-of-the-art collaboration tool 
-that can be rolled out to other facilities. The project will involve studying, evaluating, and recommending the best 
-components for an end-to-end VR solution and developing the necessary software to interface them seamlessly with the 
+
+The purpose of this project is to provide the 5G Ericsson ARISE wireless lab with a state-of-the-art collaboration tool
+that can be rolled out to other facilities. The project will involve studying, evaluating, and recommending the best
+components for an end-to-end VR solution and developing the necessary software to interface them seamlessly with the
 user(s).
 
 ## Built With
@@ -35,13 +38,16 @@ vidstream - The Python library used
 inputs - The Python library used
 
 ## Scope and Deliverables
-The project will be carried out in two phases. The first phase will involve the development of a high-definition 
-360-degree VR camera and VR goggle system. The second phase will involve the development of a user-controlled 360-degree 
+
+The project will be carried out in two phases. The first phase will involve the development of a high-definition
+360-degree VR camera and VR goggle system. The second phase will involve the development of a user-controlled 360-degree
 roaming high-definition VR camera solution with obstacle avoidance and strict route implementation.
 
 ### Phase 1
+
 - [x] Conduct a literature survey on capabilities and requirements of various VR goggles and 360-degree cameras.
-- [x] Select, purchase, and evaluate the most promising VR goggles and 360-degree cameras with respect to usability, performance specs, and reliability reviews.
+- [x] Select, purchase, and evaluate the most promising VR goggles and 360-degree cameras with respect to usability,
+  performance specs, and reliability reviews.
 - [x] Establish an end-to-end high-definition VR link between the camera and VR hardware.
 - [x] Use the VR goggle head tracking to sweep the video feed from the camera.
 - [x] Create a custom application to establish a secure remote VR video session.
@@ -50,13 +56,20 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 - [x] Find operational regimes to stress the system and assess its performance limits.
 
 ### Phase 2
-- [x] Develop a small remotely controlled and semi-autonomous vehicle to transport the 360-degree camera in a remote location or lab.
-- [x] [UNDER DEVELOPMENT] Develop obstacle avoidance and strict route implementation with either floor markings or image processing techniques.
-- [x] Integrate standard controllers/feedback devices that accompany the VR goggles to control the VR camera transport contraption around the remote location/lab with minimal latency.
-- [x] Build on the infrastructure developed in Phase 1 to make the VR camera mobile that allows a user to remotely navigate the camera around the lab over a wireless connection and the internet.
-- [x] Create a custom application to establish a secure remote VR video session and also allow the integration of VR controllers to navigate the camera in the remote location/lab.
+
+- [x] Develop a small remotely controlled and semi-autonomous vehicle to transport the 360-degree camera in a remote
+  location or lab.
+- [x] [UNDER DEVELOPMENT] Develop obstacle avoidance and strict route implementation with either floor markings or image
+  processing techniques.
+- [x] Integrate standard controllers/feedback devices that accompany the VR goggles to control the VR camera transport
+  contraption around the remote location/lab with minimal latency.
+- [x] Build on the infrastructure developed in Phase 1 to make the VR camera mobile that allows a user to remotely
+  navigate the camera around the lab over a wireless connection and the internet.
+- [x] Create a custom application to establish a secure remote VR video session and also allow the integration of VR
+  controllers to navigate the camera in the remote location/lab.
 
 ## Directory Structure
+
 ```
 |   .gitignore
 |   Pipfile
@@ -205,21 +218,21 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 
 #### Description
 
-The goal of this feature is to provide real time interactions between the driver of the remote monitoring vehicle and 
-those in the monitored area. This feature provides a video stream of the driver to the screen located on the front of 
-the robot.  As well, this makes use of two-way internet enabled audio capturing and output to allow for conversations 
+The goal of this feature is to provide real time interactions between the driver of the remote monitoring vehicle and
+those in the monitored area. This feature provides a video stream of the driver to the screen located on the front of
+the robot. As well, this makes use of two-way internet enabled audio capturing and output to allow for conversations
 between the driver and the environment.
 
 #### Usage
 
-To properly launch this feature, one must run the following command on the remote monitoring device (SBC) from the 
+To properly launch this feature, one must run the following command on the remote monitoring device (SBC) from the
 project root directory:
 
 ```
 python3 AudioVideoTransmission/AudioTransmissionVisualReciever.py
 ```
 
-On the remote monitoring transmission device (VR Transmitter), at the same time as the above command is run, one must 
+On the remote monitoring transmission device (VR Transmitter), at the same time as the above command is run, one must
 run the following command on the remote monitoring device (SBC) from the project root directory:
 
 ```
@@ -243,21 +256,22 @@ python3 AudioVideoTransmission/AudioVisualTransmission.py
 
 #### Description
 
-The goal of this feature is to provide real-time control transmission. This code works to capture different input types, 
-to parse these inputs into desired commands, and then transmit these controls to the robot. This all is meant to occur 
+The goal of this feature is to provide real-time control transmission. This code works to capture different input types,
+to parse these inputs into desired commands, and then transmit these controls to the robot. This all is meant to occur
 in a low latency manner, providing a way to move remotely in near real-time.
 
 #### Usage
 
-To make use of GamePad remote control of the robotics system, one must connect their GamePAd controller and launch `STEAM` in big picture mode (and then 
-minimize the tab).  Following this, run the following command from the project root directory:
+To make use of GamePad remote control of the robotics system, one must connect their GamePAd controller and
+launch `STEAM` in big picture mode (and then
+minimize the tab). Following this, run the following command from the project root directory:
 
 ```
 python3 ControllerTransmission/InputTransmission.py
 ```
 
 To make use of the remote head tracking control on the robot, one must first launch Windows Mixed Reality and connect an
-HP Reverb G2 to their system.  Following this, run the following command from the project root directory:
+HP Reverb G2 to their system. Following this, run the following command from the project root directory:
 
 ```
 python3 ControllerTransmission/HeadTrackingTransmission.py
@@ -281,22 +295,22 @@ python3 ControllerTransmission/HeadTrackingTransmission.py
 
 #### Description
 
-The goal of these features is two pronged.  Firstly, the goal is to parse in real-time the perceptions of the robot, 
-through the manner of an on-board stereo camera.  The perceptions include stop sign detection, depth detection, object 
-identification, and edge detection. The secondary goal is to leverage these perceptions to avoid obstacles as part of a 
+The goal of these features is two pronged. Firstly, the goal is to parse in real-time the perceptions of the robot,
+through the manner of an on-board stereo camera. The perceptions include stop sign detection, depth detection, object
+identification, and edge detection. The secondary goal is to leverage these perceptions to avoid obstacles as part of a
 path finding implementation.
 
 #### Usage
 
-To calibrate the system with the depth mapping, attach the stereo-camera to an internet connection, and run the 
+To calibrate the system with the depth mapping, attach the stereo-camera to an internet connection, and run the
 following command:
 
 ```
 python3 ObjectAvoidance/filters/point_cloud/Calibration.py
 ```
 
-Note, to properly calibrate the system, one must hold a checkerboard in front of the camera and hold it at different 
-angles and depths from the camera while this script is running.  One can find such a checkerboard at the following link:
+Note, to properly calibrate the system, one must hold a checkerboard in front of the camera and hold it at different
+angles and depths from the camera while this script is running. One can find such a checkerboard at the following link:
 https://markhedleyjones.com/projects/calibration-checkerboard-collection
 
 Following the calibration, one can fine tune the calibration by running the following command:
@@ -342,11 +356,13 @@ ObstacleAvoidance.py
 #### Usage
 
 ## Authors
+
 Nicholas Sendyk - [NicholasSend](https://github.com/NicholasSend)
 
 Brian McDonald - [bmac1613](https://github.com/bmac1613)
 
 ## Acknowledgments
+
 ![alt text][logo_1] ![alt text][logo_2]
 
 [logo_1]: https://carleton.ca/brand/wp-content/uploads/brand-logo-800w-1.jpg "Carleton University"

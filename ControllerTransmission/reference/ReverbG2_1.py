@@ -93,6 +93,7 @@ class VRController(object):
         headset_state = self.hmd
         return {'controller_state': controller_state, 'headset_state': headset_state}
 
+
 # Initialize OpenVR system
 openvr.init(openvr.VRApplication_Background)
 
@@ -124,5 +125,3 @@ while True:
     # Submit VR frames to compositor
     vr_compositor.submit(openvr.Eye_Left, left_controller.texture_handle)
     vr_compositor.submit(openvr.Eye_Right, right_controller.texture_handle)
-
-

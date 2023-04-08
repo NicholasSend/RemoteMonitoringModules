@@ -1,8 +1,8 @@
 import json
 
-import numpy as np
-import cv2
 import av
+import cv2
+import numpy as np
 from stereovision.calibration import StereoCalibration
 
 

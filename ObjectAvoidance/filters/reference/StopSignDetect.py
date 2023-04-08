@@ -1,6 +1,6 @@
 import av
-import numpy as np
 import cv2
+import numpy as np
 
 # create a PyAV input stream from the raw H264 video stream
 container = av.open("udp://192.168.0.218:3000?overrun_nonfatal=1&fifo_size=50000&pkt_size=30000")

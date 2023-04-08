@@ -5,8 +5,8 @@ Author: Nicholas Sendyk
 """
 import math
 
-import numpy as np
 import cv2
+import numpy as np
 
 
 def edge_detection(img, sigma=1):
@@ -43,7 +43,7 @@ def edge_detection(img, sigma=1):
         for y in range(cols):
             g_x = imgx[x][y]
             g_y = imgy[x][y]
-            magnitude = float((g_x**2 + g_y**2)**(1/2))
+            magnitude = float((g_x ** 2 + g_y ** 2) ** (1 / 2))
             angle = (round(np.rad2deg(math.atan(float(g_x) / (g_y + 0.00001))) / 45) % 4) * 45
 
             # Apply Simple Thresholding

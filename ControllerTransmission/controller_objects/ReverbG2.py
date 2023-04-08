@@ -1,9 +1,9 @@
 import threading
+import time
+from timeit import default_timer
 
 import numpy as np
 import openvr
-import time
-from timeit import default_timer
 
 
 class ReverbG2(object):
@@ -73,9 +73,12 @@ class ReverbG2(object):
                 if self.is_first_run:
                     self.is_first_run = not self.is_first_run
                     self.base = np.array([
-                        np.array([float(hmd_orientation[0][0]), float(hmd_orientation[0][1]), float(hmd_orientation[0][2])]),
-                        np.array([float(hmd_orientation[1][0]), float(hmd_orientation[1][1]), float(hmd_orientation[1][2])]),
-                        np.array([float(hmd_orientation[2][0]), float(hmd_orientation[2][1]), float(hmd_orientation[2][2])])
+                        np.array(
+                            [float(hmd_orientation[0][0]), float(hmd_orientation[0][1]), float(hmd_orientation[0][2])]),
+                        np.array(
+                            [float(hmd_orientation[1][0]), float(hmd_orientation[1][1]), float(hmd_orientation[1][2])]),
+                        np.array(
+                            [float(hmd_orientation[2][0]), float(hmd_orientation[2][1]), float(hmd_orientation[2][2])])
                     ])
 
                 if ((self.base[2][1] - hmd_orientation[2][1]) <= -0.5) and (
