@@ -37,7 +37,7 @@ The project will be carried out in two phases. The first phase will involve the 
 360-degree VR camera and VR goggle system. The second phase will involve the development of a user-controlled 360-degree 
 roaming high-definition VR camera solution with obstacle avoidance and strict route implementation.
 
-## Phase 1
+### Phase 1
 - [x] Conduct a literature survey on capabilities and requirements of various VR goggles and 360-degree cameras.
 - [x] Select, purchase, and evaluate the most promising VR goggles and 360-degree cameras with respect to usability, performance specs, and reliability reviews.
 - [x] Establish an end-to-end high-definition VR link between the camera and VR hardware.
@@ -47,7 +47,7 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 - [x] Investigate the system capacity and guarantee a smooth video feed with minimal latency and delay variation.
 - [x] Find operational regimes to stress the system and assess its performance limits.
 
-## Phase 2
+### Phase 2
 - [x] Develop a small remotely controlled and semi-autonomous vehicle to transport the 360-degree camera in a remote location or lab.
 - [x] [UNDER DEVELOPMENT] Develop obstacle avoidance and strict route implementation with either floor markings or image processing techniques.
 - [x] Integrate standard controllers/feedback devices that accompany the VR goggles to control the VR camera transport contraption around the remote location/lab with minimal latency.
@@ -57,17 +57,9 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 ## Directory Structure
 ```
 |   .gitignore
-|   api.launch
-|   ard_intf.cpp
-|   audio_pass.py
 |   Pipfile
 |   README.md
 |   requirements.txt
-|   ttyACM0_ard.ino
-|   ttyACM1_ard.ino
-|   ttyACM2_ard_servo.ino
-|   udp_intf.py
-|   udp_intf_2.py
 |
 +---.idea
 |   |   .gitignore
@@ -195,9 +187,22 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |           object_avoidance_algorithm.png
 |
 +---ROSModelNodes
-|       arduino.cpp
-|       ard_intf.cpp
-|       udp_intf.py
+|   +---arduino
+|   |       ttyACM0_ard.ino
+|   |       ttyACM1_ard.ino
+|   |       ttyACM2_ard_servo.ino
+|   |
+|   +---reference
+|   |       arduino.cpp
+|   |       ard_intf.cpp
+|   |       audio_pass.py
+|   |       udp_intf.py
+|   |
+|   \---ros
+|           api.launch
+|           ard_intf.cpp
+|           udp_intf.py
+|           udp_intf_2.py
 |
 +---scratch
 |       fusion_gear.py
@@ -236,7 +241,7 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 ## Authors
 Nicholas Sendyk - [NicholasSend](https://github.com/NicholasSend)
 
-Brian McDonald - [PUT YOUR GITHUB HERE](https://github.com/)
+Brian McDonald - [bmac1613](https://github.com/bmac1613)
 
 ## Acknowledgments
 ![alt text][logo_1] ![alt text][logo_2]
