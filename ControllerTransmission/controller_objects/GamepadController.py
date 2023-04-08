@@ -1,7 +1,7 @@
-from inputs import get_gamepad
 import math
 import threading
-import time
+
+from inputs import get_gamepad
 
 
 class GamepadController(object):
@@ -117,5 +117,3 @@ class GamepadController(object):
                     self.UpDPad = event.state
                 elif event.code == 'BTN_TRIGGER_HAPPY4':
                     self.DownDPad = event.state
-
-
