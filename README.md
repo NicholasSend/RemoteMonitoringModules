@@ -63,9 +63,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   README.md
 |   requirements.txt
 |
-+---.vscode
-|       launch.json
-|
 +---AudioVideoTransmission
 |   |   AudioTransmissionVisualReciever.py
 |   |   AudioVisualTransmission.py
@@ -215,6 +212,20 @@ between the driver and the environment.
 
 #### Usage
 
+To properly launch this feature, one must run the following command on the remote monitoring device (SBC) from the 
+project root directory:
+
+```
+python3 AudioVideoTransmission/AudioTransmissionVisualReciever.py
+```
+
+On the remote monitoring transmission device (VR Transmitter), at the same time as the above command is run, one must 
+run the following command on the remote monitoring device (SBC) from the project root directory:
+
+```
+python3 AudioVideoTransmission/AudioVisualTransmission.py
+```
+
 ### Controller Transmission
 
 ```
@@ -237,6 +248,20 @@ to parse these inputs into desired commands, and then transmit these controls to
 in a low latency manner, providing a way to move remotely in near real-time.
 
 #### Usage
+
+To make use of GamePad remote control of the robotics system, one must connect their GamePAd controller and launch `STEAM` in big picture mode (and then 
+minimize the tab).  Following this, run the following command from the project root directory:
+
+```
+python3 ControllerTransmission/InputTransmission.py
+```
+
+To make use of the remote head tracking control on the robot, one must first launch Windows Mixed Reality and connect an
+HP Reverb G@ to their system.  Following this, run the following command from the project root directory:
+
+```
+python3 ControllerTransmission/HeadTrackingTransmission.py
+```
 
 ### Object Avoidance
 
@@ -262,6 +287,39 @@ identification, and edge detection. The secondary goal is to leverage these perc
 path finding implementation.
 
 #### Usage
+
+To calibrate the system with the depth mapping, attach the stereo-camera to an internet connection, and run the 
+following command:
+
+```
+python3 ObjectAvoidance/filters/point_cloud/Calibration.py
+```
+
+Note, to properly calibrate the system, one must hold a checkerboard in front of the camera and hold it at different 
+angles and depths from the camera while this script is running.  One can find such a checkerboard at the following link:
+https://markhedleyjones.com/projects/calibration-checkerboard-collection
+
+Following the calibration, one can fine tune the calibration by running the following command:
+
+```
+python3 ObjectAvoidance/filters/point_cloud/fine_tuning.py
+```
+
+The design for how the system should act in an obstacle avoidance scenario can be seen in the following diagram:
+
+<img src="ObjectAvoidance/res/object_avoidance_algorithm.png" height="200" width="auto"></img>
+
+To run real time depth mapping, with built in stop sign detection, run the following command:
+
+```
+python3 ObjectAvoidance/filters/point_cloud/PointCloudVisualization.py
+```
+
+The implementation of this system is demonstrated in the following python file:
+
+```
+ObstacleAvoidance.py
+```
 
 ### ROS Model Nodes
 
