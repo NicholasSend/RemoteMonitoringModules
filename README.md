@@ -321,9 +321,9 @@ python3 ObjectAvoidance/filters/point_cloud/fine_tuning.py
 
 The design for how the system should act in an obstacle avoidance scenario can be seen in the following diagram:
 
-<img src="ObjectAvoidance/res/object_avoidance_algorithm.png" height="200" width="auto"></img>
+<img src="ObjectAvoidance/res/object_avoidance_algorithm.png" height="600" width="auto"></img>
 
-To run real time depth mapping, with built in stop sign detection, run the following command:
+To run real time depth mapping, with built-in stop sign detection, run the following command:
 
 ```
 python3 ObjectAvoidance/filters/point_cloud/PointCloudVisualization.py
