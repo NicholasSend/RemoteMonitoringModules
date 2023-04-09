@@ -183,9 +183,9 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |
 +---ROSModelNodes
 |   +---arduino
-|   |       ttyACM0_ard.ino
-|   |       ttyACM1_ard.ino
-|   |       ttyACM2_ard_servo.ino
+|   |       left.ino
+|   |       right.ino
+|   |       ard_servo.ino
 |   |
 |   +---reference
 |   |       arduino.cpp
