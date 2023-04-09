@@ -340,9 +340,9 @@ ObstacleAvoidance.py
 ```
 +---ROSModelNodes
 |   +---arduino
-|   |       ttyACM0_ard.ino
-|   |       ttyACM1_ard.ino
-|   |       ttyACM2_ard_servo.ino
+|   |       left.ino
+|   |       right.ino
+|   |       ard_servo.ino
 |   |
 |   \---ros
 |           api.launch
@@ -353,7 +353,42 @@ ObstacleAvoidance.py
 
 #### Description
 
+The objective of the ROS model nodes are to enable communication between low-level motor controllers and high-level 
+user inputs. This is accomplished through the use of ROS topics which facilitate communication between nodes. 
+The ROS nodes leverage both Python and C++ functionality to accomplish translation between communication protocols. 
+These nodes act as interfaces for each communication protocol translating to a common medium. This allows future 
+nodes to be added and configured with simplicity, facilitating modularity. 
+
+The Arduino scripts use a superset of C++ Arduino code that leverage ROS topics over serial communication and 
+outputting through GPIO pins to interface with motor controllers. 
+
 #### Usage
+
+To launch the ROS model nodes, first ensure incoming data from NUC over UDP is running and
+the Arduino's have been flashed the correct file from above. 
+See robot for labelling of each Arduino. left.ino must be flashed to the left hand Arduino when viewing 
+robot from the rear (typically ttyACM1). The same convention applies to right.ino (typically ttyACM0). 
+Flash servo_ard.ino to the Arduino on the second shelf (typically ttyACM2).
+
+Once Arduino's flashed, initialize all ROS nodes using the launch file which instantiates all created nodes
+and necessary nodes supporting serial communication. The command is as follows:
+
+```
+roslaunch ~/catkin_ws/src/launch_files/api.launch
+```
+
+If desiring to test functionality of nodes, launch independently such as the example below:
+
+```
+rosrun api_nodes ard_intf
+```
+
+To send input and view output of node refer to ROS documentation to dictate input and view output.
+Use in combination with the source code for topics to write to and echo. ROS topic echo and publishing:
+
+```
+http://wiki.ros.org/ROS/Tutorials/UnderstandingTopics
+```
 
 ## Authors
 
