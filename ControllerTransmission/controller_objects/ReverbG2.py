@@ -36,16 +36,7 @@ class ReverbG2(object):
 
     def read(self):
         """
-        Accesses current Gamepad state for a subset of buttons.
-
-        format:
-            [
-                LeftJoystickX,
-                LeftJoystickY,
-                A,              # Placeholder
-                X,              # Placeholder
-                RightBumper     # Placeholder
-            ]
+        Accesses current Head Tracking state for a subset of directionsg.
 
         :return: List[Float, Float, Float, Float]
         """
