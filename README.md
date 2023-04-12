@@ -405,5 +405,5 @@ Brian McDonald - [bmac1613](https://github.com/bmac1613)
 
 Thank you to Ericsson and Carleton University for the support on this research.
 
-Thank you to Arsh Salym and Nikita Volochay for your support on the hardware side of the project.
+Thank you to Arsh Saleem and Nikita Volochay for your support on the hardware side of the project.
 As well, a special thanks to the supervisors of the project Dr. Ioannis Lambadaris and Dr. Syed Naqvi.
