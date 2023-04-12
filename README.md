@@ -186,9 +186,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |       left.ino
 |   |       right.ino
 |   |       ard_servo.ino
-|   |       ttyACM0_ard.ino
-|   |       ttyACM1_ard.ino
-|   |       ttyACM2_ard.ino
 |   |
 |   +---reference
 |   |       arduino.cpp
@@ -345,9 +342,6 @@ ObstacleAvoidance.py
 |   |       left.ino
 |   |       right.ino
 |   |       ard_servo.ino
-|   |       ttyACM0_ard.ino
-|   |       ttyACM1_ard.ino
-|   |       ttyACM2_ard.ino
 |   |
 |   \---ros
 |           api.launch
