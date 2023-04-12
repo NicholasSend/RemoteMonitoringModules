@@ -103,9 +103,7 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   +---filters
 |   |   +---point_cloud
 |   |   |   |   3dmap_set.txt
-|   |   |   |   calibration.mp4
 |   |   |   |   Calibration.py
-|   |   |   |   fine_tune_1.jpg
 |   |   |   |   fine_tuning.py
 |   |   |   |   ObstacleAvoidance.py
 |   |   |   |   PointCloudVisualization.py
@@ -136,6 +134,7 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |   |   |   access_test.py
 |   |   |   |   ApplyEdgeDetection.py
 |   |   |   |   calibration.mp4
+|   |   |   |   calibration_1.mp4
 |   |   |   |   calibration_1.jpg
 |   |   |   |   calibration_10.jpg
 |   |   |   |   calibration_12.jpg
@@ -149,6 +148,7 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |   |   |   calibration_9.jpg
 |   |   |   |   calibration_via_video.py
 |   |   |   |   EdgeDetection.py
+|   |   |   |   fine_tune_1.jpg
 |   |   |   |   img0.jpg
 |   |   |   |   output.mp4
 |   |   |   |   stereopi.mp4
@@ -186,6 +186,9 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
 |   |       left.ino
 |   |       right.ino
 |   |       ard_servo.ino
+|   |       ttyACM0_ard.ino
+|   |       ttyACM1_ard.ino
+|   |       ttyACM2_ard.ino
 |   |
 |   +---reference
 |   |       arduino.cpp
@@ -203,7 +206,6 @@ roaming high-definition VR camera solution with obstacle avoidance and strict ro
         fusion_gear.py
         yolov4-tiny.cfg
         yolov4-tiny.weights
-
 ```
 
 ## Feature Breakdown
@@ -343,6 +345,9 @@ ObstacleAvoidance.py
 |   |       left.ino
 |   |       right.ino
 |   |       ard_servo.ino
+|   |       ttyACM0_ard.ino
+|   |       ttyACM1_ard.ino
+|   |       ttyACM2_ard.ino
 |   |
 |   \---ros
 |           api.launch

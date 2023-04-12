@@ -24,7 +24,7 @@ class ControlTransmission(object):
 
     def transmit_udp(self):
         """
-        Transmits formatted commands from a controller to the ROS noetic system over UDP
+        Transmits formatted commands from a VR headset to the ROS noetic system over UDP
         """
         print("UDP target IP: %s" % ControlTransmission.UDP_IP)
         print("UDP target port: %s" % ControlTransmission.UDP_PORT)
@@ -43,9 +43,9 @@ class ControlTransmission(object):
 
     def _process_message(self, unprocessed_message: list) -> bytes:
         """
-        Logic to process controller commands into desired actions on the ROS system
+        Logic to process commands into desired actions on the ROS system
 
-        :param unprocessed_message: semi-formatted input from the controller
+        :param unprocessed_message: semi-formatted input from the VR system
         :return: bytes; the byte formatted message
         """
 
