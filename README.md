@@ -364,7 +364,8 @@ outputting through GPIO pins to interface with motor controllers.
 #### Usage
 
 To launch the ROS model nodes, first ensure incoming data from NUC over UDP is running and
-the Arduino's have been flashed the correct file from above. 
+the Arduino's have been flashed the correct file from above. On first run, unplug all Arduino cables from 
+Pi. Plug in Arduino labelled ttyACM0 first. Then ttyACM1 second, and ttyACM2 third.
 See robot for labelling of each Arduino. left.ino must be flashed to the left hand Arduino when viewing 
 robot from the rear (typically ttyACM1). The same convention applies to right.ino (typically ttyACM0). 
 Flash servo_ard.ino to the Arduino on the second shelf (typically ttyACM2).
