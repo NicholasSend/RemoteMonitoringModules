@@ -79,23 +79,33 @@ void messageCb( const std_msgs::String& action){
   else {
     
     if ((msg_tmp[0] == 'B') && (flag != 'B')){ // Forward
-      analogWrite(R_PWM, PWM_IN/3);
+      analogWrite(R_PWM, PWM_IN/3.5);
       
       analogWrite(L_PWM, 0);
     }
 
     else if ((msg_tmp[0] == 'F') && (flag != 'F')){  // Back
-      analogWrite(L_PWM, PWM_IN/3);
+      analogWrite(L_PWM, PWM_IN/3.5);
       analogWrite(R_PWM, 0);
     }
     
-    else if ((msg_tmp[0] == 'R') && (flag != 'R')){  // Right
-      analogWrite(L_PWM, PWM_IN/1.25);
+    else if ((msg_tmp[0] == 'R') && (flag != 'R')){
+      if (PWM_IN >= 135){
+        analogWrite(L_PWM, 135);
+      }
+      else{
+        analogWrite(L_PWM, PWM_IN/1.75);
+      }
       analogWrite(R_PWM, 0);
     }
     
-    else if ((msg_tmp[0] == 'L') && (flag != 'L')){  // Left
-      analogWrite(R_PWM, PWM_IN/1.25);
+    else if ((msg_tmp[0] == 'L') && (flag != 'L')){
+      if (PWM_IN >= 150){
+        analogWrite(R_PWM, 150);
+      }// Left
+      else{
+        analogWrite(R_PWM, PWM_IN/1.5);
+      }
       analogWrite(L_PWM, 0);
     } 
 
