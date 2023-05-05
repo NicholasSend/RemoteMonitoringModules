@@ -376,10 +376,23 @@ and necessary nodes supporting serial communication. The command is as follows:
 roslaunch ~/catkin_ws/src/launch_files/api.launch
 ```
 
-If desiring to test functionality of nodes, launch independently such as the example below:
+If desiring to test functionality of nodes, one can launch independently such as the example below:
 
 ```
 rosrun api_nodes ard_intf
+```
+
+It is good practice to close the UDP sockets after terminating the ROS nodes in between runs and before
+relaunching to ensure the sockets can be re-opened on next run. 
+
+```
+sudo fuser -k 5515/udp 5565/udp
+```
+
+If prompted for the password:
+
+```
+ubuntu
 ```
 
 To send input and view output of node refer to ROS documentation to dictate input and view output.
